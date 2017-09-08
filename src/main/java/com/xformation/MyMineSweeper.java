@@ -52,13 +52,13 @@ public class MyMineSweeper implements MineSweeper {
             }
         }
 
-
-      String result =  Arrays.toString(hintField);
-        /*
-        String result = Stream.of(hintField).flatMap(Stream::of)
-                .map(ints -> String.valueOf(ints))
-                .collect(Collectors.joining(", "));*/
-        return result;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hintField.length; i++) {
+            for (int j = 0; j < hintField[0].length; j++) {
+                sb.append(hintField[i][j]);
+            }
+        }
+        return sb.toString();
     }
 
     private void adjustAdjacent(int[][] hintField, int x, int y) {
@@ -84,7 +84,7 @@ public class MyMineSweeper implements MineSweeper {
                 hintField[i][j]++;
             }
         }
-        hintField[x][y] --;
+        hintField[x][y]--;
     }
 
 
