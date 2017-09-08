@@ -1,14 +1,10 @@
 package com.xformation;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 /**
  * Created by WolakT on 2017-09-05.
  */
 public class MyMineSweeper implements MineSweeper {
-    private String[][] mineFieldMap;
+    private String[][] mineFieldArr;
     private int N;
     private int M;
 
@@ -17,11 +13,11 @@ public class MyMineSweeper implements MineSweeper {
         String[] rowsCount = mineField.split("\\\n");
         M = rowsCount.length;
         N = rowsCount[0].length();
-        mineFieldMap = new String[M][N];
+        mineFieldArr = new String[M][N];
         for (int i = 0; i < rowsCount.length; i++) {
             String[] singleSign = rowsCount[i].split("");
             for (int j = 0; j < N; j++) {
-                mineFieldMap[i][j] = singleSign[j];
+                mineFieldArr[i][j] = singleSign[j];
             }
         }
     }
@@ -42,10 +38,13 @@ public class MyMineSweeper implements MineSweeper {
     }
 
     public String getHintField() throws IllegalStateException {
+        if (mineFieldArr == null) {
+            throw new IllegalStateException("MineField not initialized. Call setMineField first!");
+        }
         int[][] hintField = new int[M][N];
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
-                if (mineFieldMap[i][j].equals("*")) {
+                if (mineFieldArr[i][j].equals("*")) {
                     hintField[i][j] = -8;
                     adjustAdjacent(hintField, i, j);
                 }
@@ -55,9 +54,17 @@ public class MyMineSweeper implements MineSweeper {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < hintField.length; i++) {
             for (int j = 0; j < hintField[0].length; j++) {
-                sb.append(hintField[i][j]);
+                if (hintField[i][j] < 0) {
+                    sb.append("*");
+                } else {
+                    sb.append(hintField[i][j]);
+                }
+                if (j == N - 1 && i < M - 1) {
+                    sb.append("\n");
+                }
             }
         }
+
         return sb.toString();
     }
 
@@ -70,14 +77,14 @@ public class MyMineSweeper implements MineSweeper {
         if (xLowerBound < 0) {
             xLowerBound = 0;
         }
-        if (xUpperBound > M) {
-            xUpperBound = M;
+        if (xUpperBound >= M) {
+            xUpperBound = M - 1;
         }
         if (yLowerBound < 0) {
             yLowerBound = 0;
         }
-        if (yUpperBound > N) {
-            yUpperBound = N;
+        if (yUpperBound >= N) {
+            yUpperBound = N - 1;
         }
         for (int i = xLowerBound; i <= xUpperBound; i++) {
             for (int j = yLowerBound; j <= yUpperBound; j++) {
@@ -88,8 +95,8 @@ public class MyMineSweeper implements MineSweeper {
     }
 
 
-    public String[][] getMineFieldMap() {
-        return mineFieldMap;
+    public String[][] getMineFieldArr() {
+        return mineFieldArr;
     }
 
 
