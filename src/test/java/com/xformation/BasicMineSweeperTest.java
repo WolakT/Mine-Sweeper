@@ -11,18 +11,17 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Tomcio on 2017-09-05.
  */
 @RunWith(JUnitParamsRunner.class)
-public class MyMineSweeperTest {
-    private MyMineSweeper testSweeper;
+public class BasicMineSweeperTest {
+    private BasicMineSweeper testSweeper;
 
     @Before
     public void setUp() {
-        testSweeper = new MyMineSweeper();
+        testSweeper = new BasicMineSweeper();
     }
 
 
@@ -105,7 +104,7 @@ public class MyMineSweeperTest {
 
     @Test(expected = IllegalStateException.class)
     public void shouldThrowIllegalStateExceptionWhenMineFieldNotInitialized() {
-        MyMineSweeper sweeper = new MyMineSweeper();
+        BasicMineSweeper sweeper = new BasicMineSweeper();
         sweeper.getHintField();
     }
 

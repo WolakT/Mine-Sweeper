@@ -3,7 +3,7 @@ package com.xformation;
 /**
  * Created by WolakT on 2017-09-05.
  */
-public class MyMineSweeper implements MineSweeper {
+public class BasicMineSweeper implements MineSweeper {
     private String[][] mineFieldArr;
     private int N;
     private int M;

@@ -4,10 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        MyMineSweeper sweeper = new MyMineSweeper();
+        BasicMineSweeper sweeper = new BasicMineSweeper();
         sweeper.setMineField("*...\n....");
         System.out.println(sweeper.getHintField());
-        MyMineSweeper sweeper2 = new MyMineSweeper();
+        BasicMineSweeper sweeper2 = new BasicMineSweeper();
         sweeper2.setMineField("*..\n..*\n.*.");
         System.out.println(sweeper2.getHintField());
     }
