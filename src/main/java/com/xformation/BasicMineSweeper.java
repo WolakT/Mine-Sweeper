@@ -4,13 +4,15 @@ package com.xformation;
  * Created by WolakT on 2017-09-05.
  */
 public class BasicMineSweeper implements MineSweeper {
+    private static final String FIELD_PATTERN = "[\\.\\*\\n]*";
+    private static final String MINE_FIELD_DELIMITTER = "\\\n";
     private String[][] mineFieldArr;
     private int N;
     private int M;
 
     public void setMineField(String mineField) throws IllegalArgumentException {
         if (!validateMineField(mineField)) throw new IllegalArgumentException();
-        String[] rowsCount = mineField.split("\\\n");
+        String[] rowsCount = mineField.split(MINE_FIELD_DELIMITTER);
         M = rowsCount.length;
         N = rowsCount[0].length();
         mineFieldArr = new String[M][N];
@@ -23,14 +25,14 @@ public class BasicMineSweeper implements MineSweeper {
     }
 
     private boolean validateMineField(String mineField) {
-        String[] rows = mineField.split("\\n");
+        String[] rows = mineField.split(MINE_FIELD_DELIMITTER);
         int firstRowLength = rows[0].length();
         for (int i = 1; i < rows.length; i++) {
             if (rows[i].length() != firstRowLength) {
                 return false;
             }
         }
-        if (!mineField.matches("[\\.\\*\\n]*")) {
+        if (!mineField.matches(FIELD_PATTERN)) {
             return false;
         } else {
             return true;

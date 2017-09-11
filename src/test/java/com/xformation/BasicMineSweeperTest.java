@@ -13,10 +13,11 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Created by Tomcio on 2017-09-05.
+ * Created by WolakT on 2017-09-05.
  */
 @RunWith(JUnitParamsRunner.class)
 public class BasicMineSweeperTest {
+    private static final String NEW_LINE = "\n";
     private BasicMineSweeper testSweeper;
 
     @Before
@@ -72,7 +73,7 @@ public class BasicMineSweeperTest {
             }
         }
         String result = stringBuilder.toString();
-//    String result = Stream.of(mineFieldMap).flatMap(Stream::of).collect(Collectors.joining("\n"));
+
         Assert.assertEquals(mineField.toString(), result);
     }
 
@@ -110,11 +111,26 @@ public class BasicMineSweeperTest {
 
     @Test
     public void shouldReturnTheSameStringAsInput() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("src\\main\\resources\\mineField.txt"));
+        List<String> lines = Files.readAllLines(Paths.get("src\\test\\resources\\mineField.txt"));
         String mineField = String.join("\n", lines);
         testSweeper.setMineField(mineField);
         String resultHintField = testSweeper.getHintField();
         Assert.assertEquals(mineField, resultHintField);
+
+    }
+
+    @Test
+    public void shouldReturnCorrectHintFieldFromInput() throws IOException{
+        List<String> lines = Files.readAllLines(Paths.get("src\\test\\resources\\longMineField.txt"));
+        String mineField = String.join(NEW_LINE, lines);
+
+        List<String> resultLines =  Files.readAllLines(Paths.get("src\\test\\resources\\longMineField_result.txt"));
+        String expectedResult = String.join(NEW_LINE, resultLines);
+
+        testSweeper.setMineField(mineField);
+        String resultHintField = testSweeper.getHintField();
+
+        Assert.assertEquals(expectedResult, resultHintField);
 
     }
 
