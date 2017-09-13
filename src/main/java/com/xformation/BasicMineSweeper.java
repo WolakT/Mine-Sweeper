@@ -96,10 +96,4 @@ public class BasicMineSweeper implements MineSweeper {
         hintField[x][y]--;
     }
 
-
-    public String[][] getMineFieldArr() {
-        return mineFieldArr;
-    }
-
-
 }
