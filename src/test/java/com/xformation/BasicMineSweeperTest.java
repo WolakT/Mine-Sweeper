@@ -46,37 +46,6 @@ public class BasicMineSweeperTest {
         testSweeper.setMineField(mineField.toString());
     }
 
-    private Object[][] mineToMap() {
-        Object[][] params = {
-                {"*..\n..*\n.*."},
-                {".......\n*******"},
-                {".\n*\n.\n*\n.\n*\n."},
-                {"..............."}
-
-
-        };
-        return params;
-    }
-
-    @Test
-    @Parameters(method = "mineToMap")
-    public void shouldAssignMineFieldCorrectlyToMineMap(Object mineField) {
-        testSweeper.setMineField(mineField.toString());
-        String[][] mineFieldMap = testSweeper.getMineFieldArr();
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < mineFieldMap.length; i++) {
-            for (int j = 0; j < mineFieldMap[i].length; j++) {
-                stringBuilder.append(mineFieldMap[i][j]);
-            }
-            if (i < mineFieldMap.length - 1) {
-                stringBuilder.append("\n");
-            }
-        }
-        String result = stringBuilder.toString();
-
-        Assert.assertEquals(mineField.toString(), result);
-    }
-
     private Object[][] mineToHint() {
         Object[][] params = {
                 {"*...\n..*.\n....", "*211\n12*1\n0111"},
