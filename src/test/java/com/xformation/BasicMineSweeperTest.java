@@ -18,6 +18,9 @@ import java.util.List;
 @RunWith(JUnitParamsRunner.class)
 public class BasicMineSweeperTest {
     private static final String NEW_LINE = "\n";
+    private static final String PATH_LONG_MINE_FIELD = "src\\test\\resources\\longMineField.txt";
+    private static final String PATH_LONG_MINE_FIELD_RESULT = "src\\test\\resources\\longMineField_result.txt";
+    private static final String PATH_MINE_FIELD = "src\\test\\resources\\mineField.txt";
     private BasicMineSweeper testSweeper;
 
     @Before
@@ -41,7 +44,7 @@ public class BasicMineSweeperTest {
 
     @Test(expected = IllegalArgumentException.class)
     @Parameters(method = "incorrectMineField")
-    public void shouldThrowAnIllegalArgumentExceptionWhenTheMineFieldIsIncorrect(Object mineField) {
+    public void setMineFieldshouldThrowOnIncorrectMineField(Object mineField) {
 
         testSweeper.setMineField(mineField.toString());
     }
@@ -73,14 +76,14 @@ public class BasicMineSweeperTest {
     }
 
     @Test(expected = IllegalStateException.class)
-    public void shouldThrowIllegalStateExceptionWhenMineFieldNotInitialized() {
+    public void getHintFieldShouldThrowWhenMineFieldNotInitialized() {
         BasicMineSweeper sweeper = new BasicMineSweeper();
         sweeper.getHintField();
     }
 
     @Test
     public void shouldReturnTheSameStringAsInput() throws IOException {
-        List<String> lines = Files.readAllLines(Paths.get("src\\test\\resources\\mineField.txt"));
+        List<String> lines = Files.readAllLines(Paths.get(PATH_MINE_FIELD));
         String mineField = String.join("\n", lines);
         testSweeper.setMineField(mineField);
         String resultHintField = testSweeper.getHintField();
@@ -90,10 +93,10 @@ public class BasicMineSweeperTest {
 
     @Test
     public void shouldReturnCorrectHintFieldFromInput() throws IOException{
-        List<String> lines = Files.readAllLines(Paths.get("src\\test\\resources\\longMineField.txt"));
+        List<String> lines = Files.readAllLines(Paths.get(PATH_LONG_MINE_FIELD));
         String mineField = String.join(NEW_LINE, lines);
 
-        List<String> resultLines =  Files.readAllLines(Paths.get("src\\test\\resources\\longMineField_result.txt"));
+        List<String> resultLines =  Files.readAllLines(Paths.get(PATH_LONG_MINE_FIELD_RESULT));
         String expectedResult = String.join(NEW_LINE, resultLines);
 
         testSweeper.setMineField(mineField);
